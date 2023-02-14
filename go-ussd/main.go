@@ -12,7 +12,7 @@ func main() {
 	r.GET("/books", controllers.FindBooks)
 	r.POST("/books", controllers.CreateBook)
 	r.GET("/books/:id", controllers.FindBook) // new
-	r.POST("ussd",con)
+	r.POST("/ussd", controllers.GetInputs)
 	r.Run(":8007")
 
 }
