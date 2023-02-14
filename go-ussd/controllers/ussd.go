@@ -6,21 +6,35 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UssdInput struct {
-	ID     uint   `json:"id" gorm:"primary_key"`
-	Title  string `json:"title"`
-	Author string `json:"author"`
-}
+func GetInputs(c *gin.Context) {
+	//sessionId := c.PostForm("sessionId")
+	text := c.PostForm("text")
 
+	if IsUserStarting(text) {
+		response := GetHomeMenu()
+		//fmt.Println(response)
+		c.JSON(http.StatusOK, gin.H{"data": response})
+	} else {
+		response := StateSwitch()
+		//fmt.Println(response)
 
-func index(c *gin.Context) {
-	var input UssdInput
-	if err:= c.ShouldBindJSON(&input); err!=nil{
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		c.JSON(http.StatusOK, gin.H{"data": response})
 	}
 
 }
-func isUserStarting(){
-	
+func IsUserStarting(text string) bool {
+	if text == "" {
+		return true
+	} else {
+		return false
+	}
+
+}
+func GetHomeMenu() string {
+	return "home screen"
+}
+
+func StateSwitch() string {
+	return "state switch"
+
 }
